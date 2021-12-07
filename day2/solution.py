@@ -17,7 +17,7 @@ def move_submarine(submarine, cmd, qty):
     if cmd == "forward":
         return Submarine(
             submarine.hoz + qty,
-            submarine.depth * submarine.aim,
+            submarine.depth + submarine.aim * qty,
             submarine.aim,
         )
     if cmd == "down":
