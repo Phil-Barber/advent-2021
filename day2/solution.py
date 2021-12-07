@@ -1,7 +1,7 @@
 from collections import namedtuple
 from collections.abc import Iterator
 
-Submarine = namedtuple("Submarine", ("hoz", "depth"))
+Submarine = namedtuple("Submarine", ("hoz", "depth", "aim"))
 
 
 def lines() -> Iterator:
@@ -15,17 +15,21 @@ def commands(file_lines) -> Iterator:
 
 def move_submarine(submarine, cmd, qty):
     if cmd == "forward":
-        return Submarine(submarine.hoz + qty, submarine.depth)
+        return Submarine(
+            submarine.hoz + qty,
+            submarine.depth * submarine.aim,
+            submarine.aim,
+        )
     if cmd == "down":
-        return Submarine(submarine.hoz, submarine.depth + qty)
+        return Submarine(submarine.hoz, submarine.depth, submarine.aim + qty)
     if cmd == "up":
-        return Submarine(submarine.hoz, submarine.depth - qty)
+        return Submarine(submarine.hoz, submarine.depth, submarine.aim - qty)
     raise Exception(f"InvalidCommand: {cmd=}")
 
 
 if __name__ == "__main__":
     file_lines = lines()
-    submarine = Submarine(0, 0)
+    submarine = Submarine(0, 0, 0)
 
     for cmd, qty in commands(file_lines):
         submarine = move_submarine(submarine, cmd, int(qty))
