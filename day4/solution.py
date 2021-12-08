@@ -40,10 +40,12 @@ class Board:
 
 def call_numbers(boards, calls):
     for call_number in calls:
-        for board in boards:
+        for idx, board in enumerate(boards):
             board.call(call_number)
             if board.has_won():
-                return board, call_number
+                if len(boards) == 1:
+                    return board, call_number
+                boards = boards[:idx] + boards[idx + 1 :]
 
 
 def bingo(number_calls, boards_input):

@@ -55,7 +55,7 @@ board3 = [
 
 
 def test_main_example_input():
-    assert s.bingo(number_calls, [board1, board2, board3]) == 4512
+    assert s.bingo(number_calls, [board1, board2, board3]) == 1924
 
 
 def test_board_call_sets_called_number():
@@ -121,11 +121,11 @@ def test_board_has_won_false_if_not_won():
     assert not board.has_won()
 
 
-def test_call_numbers_returns_winning_board_and_number():
+def test_call_numbers_returns_losing_board_and_number():
     boards = [s.Board(rows=board) for board in (board1, board2, board3)]
     board, num = s.call_numbers(boards, number_calls)
-    assert board == boards[2]
-    assert num == 24
+    assert board == boards[1]
+    assert num == 13
 
 
 def test_sums_only_not_called_numbers():
