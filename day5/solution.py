@@ -48,10 +48,7 @@ def counter_danger(counter):
 
 
 def main(lines):
-    non_diaganol = (
-        line for line in lines if line[0][0] == line[1][0] or line[0][1] == line[1][1]
-    )
-    line_coords = chain.from_iterable(get_full_line(line) for line in non_diaganol)
+    line_coords = chain.from_iterable(get_full_line(line) for line in lines)
     coord_counter = Counter(line_coords)
     return counter_danger(coord_counter)
 

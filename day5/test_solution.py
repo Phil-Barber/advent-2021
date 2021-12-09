@@ -48,7 +48,7 @@ def test_parse_input_lines():
 
 
 def test_main():
-    assert s.main(example_lines) == 5
+    assert s.main(example_lines) == 12
 
 
 def test_counter_danger():
