@@ -21,61 +21,98 @@ def test_main():
 
 
 @pytest.mark.parametrize(
-    "inputs, outputs",
+    "inputs, possibilities",
     (
         (
             (
-                "be",
-                "cfbegad",
-                "cbdgef",
-                "fgaecd",
-                "cgeb",
-                "fdcge",
-                "agebfd",
-                "fecdb",
-                "fabcd",
-                "edb",
+                "acedgfb",
+                "cdfbe",
+                "gcdfa",
+                "fbcad",
+                "dab",
+                "cefabd",
+                "cdfgeb",
+                "eafb",
+                "cagedb",
+                "ab",
             ),
-            {"be": 1, "cgeb": 4, "edb": 7, "cfbegad": 8},
-        ),
-        (
-            (
-                "edbfga",
-                "begcd",
-                "cbg",
-                "gc",
-                "gcadebf",
-                "fbgde",
-                "acbgfd",
-                "abcde",
-                "gfcbed",
-                "gfec",
-            ),
-            {"gc": 1, "gfec": 4, "cbg": 7, "gcadebf": 8},
+            [
+                {"cefabd", "cdfgeb", "cagedb"},
+                {"ab"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"eafb"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"cefabd", "cdfgeb", "cagedb"},
+                {"dab"},
+                {"acedgfb"},
+                {"cefabd", "cdfgeb", "cagedb"},
+            ],
         ),
     ),
 )
-def test_decipher_inputs(inputs, outputs):
-    assert s.decipher_inputs(inputs) == outputs
+def test_build_possibilities(inputs, possibilities):
+    assert s.build_possibilities(inputs) == possibilities
+
+
+@pytest.mark.parametrize(
+    "possibilities, numbers",
+    (
+        (
+            [
+                {"cefabd", "cdfgeb", "cagedb"},
+                {"ab"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"eafb"},
+                {"cdfbe", "gcdfa", "fbcad"},
+                {"cefabd", "cdfgeb", "cagedb"},
+                {"dab"},
+                {"acedgfb"},
+                {"cefabd", "cdfgeb", "cagedb"},
+            ],
+            [
+                "cagedb",
+                "ab",
+                "gcdfa",
+                "fbcad",
+                "eafb",
+                "cdfbe",
+                "cdfgeb",
+                "dab",
+                "acedgfb",
+                "cefabd",
+            ],
+        ),
+    ),
+)
+def test_get_numbers(possibilities, numbers):
+    assert s.get_numbers(possibilities) == numbers
 
 
 @pytest.mark.parametrize(
     "codex, outputs, expected",
     (
         (
-            {"be": 1, "cgeb": 4, "edb": 7, "cfbegad": 8},
-            ("fdgacbe", "cefdb", "cefbgd", "gcbe"),
-            2,
-        ),
-        (
-            {"gc": 1, "gfec": 4, "cbg": 7, "gcadebf": 8},
-            ("fcgedb", "cgb", "dgebacf", "gc"),
-            3,
+            [
+                "cagedb",
+                "ab",
+                "gcdfa",
+                "fbcad",
+                "eafb",
+                "cdfbe",
+                "cdfgeb",
+                "dab",
+                "acedgfb",
+                "cefabd",
+            ],
+            ("cdfeb", "fcadb", "cdfeb", "cdbaf"),
+            5353,
         ),
     ),
 )
-def test_count_ouputs(codex, outputs, expected):
-    assert s.count_outputs(codex, outputs) == expected
+def test_deciphered_outputs(codex, outputs, expected):
+    assert s.deciphered_outputs(codex, outputs) == expected
 
 
 def test_parse_input():
