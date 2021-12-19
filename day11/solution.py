@@ -12,13 +12,15 @@ class Octopus:
         return self.level > 9 and not self.has_flashed
 
 
-def main(energy_levels, steps):
+def main(energy_levels):
     octopuses = [[Octopus(int(level)) for level in row] for row in energy_levels]
 
-    for _ in range(steps):
+    step_count = 0
+    while not all_flashed(octopuses):
         octopuses = step(octopuses)
+        step_count += 1
 
-    return sum(octopus.flashes for row in octopuses for octopus in row)
+    return step_count
 
 
 def step(octopuses):
@@ -70,6 +72,10 @@ def reset_level_and_has_flashed(octopuses):
     ]
 
 
+def all_flashed(octopuses):
+    return all(octopus.level == 0 for row in octopuses for octopus in row)
+
+
 def print_octs(octopuses):
     print("~~~")
     for row in octopuses:
@@ -89,5 +95,5 @@ if __name__ == "__main__":
     inputs = [line[:-1] for line in inputs if line[0]]
     print(inputs[0])
     print(inputs[-1])
-    answer = main(inputs, 100)
+    answer = main(inputs)
     print(f"Answer: {answer}")

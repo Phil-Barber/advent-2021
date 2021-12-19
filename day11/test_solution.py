@@ -17,7 +17,7 @@ energy_levels = [
 
 
 def test_main():
-    assert s.main(energy_levels, 100) == 1656
+    assert s.main(energy_levels) == 195
 
 
 @pytest.mark.parametrize(
