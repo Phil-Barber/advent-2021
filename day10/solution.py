@@ -1,3 +1,4 @@
+import statistics
 from collections import deque
 
 matching = {
@@ -8,29 +9,37 @@ matching = {
 }
 
 scores = {
-    ")": 3,
-    "]": 57,
-    "}": 1197,
-    ">": 25137,
+    "(": 1,
+    "[": 2,
+    "{": 3,
+    "<": 4,
 }
 
 
 def main(lines):
-    return sum(chunk_score(line) for line in lines)
+    scores = [chunk_score(chunk) for chunk in lines]
+    non_zero = [score for score in scores if score != 0]
+    return statistics.median(non_zero)
 
 
 def chunk_score(chunk):
     stack = deque()
     for char in chunk:
-        print("".join(stack), char)
         if char in matching.values():
             stack.append(char)
         else:
             if stack[-1] == matching[char]:
                 stack.pop()
             else:
-                return scores[char]
-    return 0
+                return 0
+    if len(stack) == 0:
+        return 0
+
+    score = 0
+    while len(stack):
+        score *= 5
+        score += scores[stack.pop()]
+    return score
 
 
 #####
