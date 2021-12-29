@@ -43,23 +43,7 @@ mapping = {
 
 def test_main():
     input = ["NNCB", "", *mapping_lines]
-    assert s.main(input) == 1588
-
-
-@pytest.mark.parametrize(
-    "before, after",
-    (
-        ("NNCB", "NCNBCHB"),
-        ("NCNBCHB", "NBCCNBBBCBHCB"),
-        ("NBCCNBBBCBHCB", "NBBBCNCCNBBNBNBBCHBHHBCHB"),
-        (
-            "NBBBCNCCNBBNBNBBCHBHHBCHB",
-            "NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB",
-        ),
-    ),
-)
-def test_step(before, after):
-    assert s.step(before, mapping) == after
+    assert s.main(input) == 2188189693529
 
 
 def test_parse_mapping():

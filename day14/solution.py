@@ -5,11 +5,25 @@ def main(inputs):
     template = inputs[0]
     mapping = parse_mapping(inputs[2:])
 
-    for _ in range(10):
-        template = step(template, mapping)
+    template_counter, letter_counter = Counter(), Counter()
+    for idx in range(len(template) - 1):
+        template_counter[template[idx : idx + 2]] += 1
+        letter_counter[template[idx]] += 1
+    letter_counter[template[-1]] += 1
 
-    counts = Counter(template).values()
-    return max(counts) - min(counts)
+    for _ in range(40):
+        new_counter = Counter()
+        for pair in template_counter:
+            n = template_counter[pair]
+            result = mapping.get(pair, "")
+            if result != "":
+                new_counter[pair[0] + result] += n
+                new_counter[result + pair[1]] += n
+                letter_counter[result] += n
+        template_counter = new_counter
+
+    values = letter_counter.values()
+    return max(values) - min(values)
 
 
 def parse_mapping(mapping_lines):
