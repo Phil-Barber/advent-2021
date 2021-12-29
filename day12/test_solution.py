@@ -51,9 +51,9 @@ example3 = [
 @pytest.mark.parametrize(
     "edges, num_paths",
     (
-        (example1, 10),
-        (example2, 19),
-        (example3, 226),
+        (example1, 36),
+        (example2, 103),
+        (example3, 3509),
     ),
 )
 def test_get_num_paths_from_edges(edges, num_paths):
@@ -93,51 +93,6 @@ class TestEdge:
     "edges, paths",
     (
         (
-            [s.Edge.from_string(edge) for edge in example1],
-            [
-                [
-                    s.Node("start"),
-                    s.Node("A"),
-                    s.Node("c"),
-                    s.Node("A"),
-                    s.Node("b"),
-                    s.Node("A"),
-                    s.Node("end"),
-                ],
-                [
-                    s.Node("start"),
-                    s.Node("A"),
-                    s.Node("c"),
-                    s.Node("A"),
-                    s.Node("b"),
-                    s.Node("end"),
-                ],
-                [s.Node("start"), s.Node("A"), s.Node("c"), s.Node("A"), s.Node("end")],
-                [
-                    s.Node("start"),
-                    s.Node("A"),
-                    s.Node("b"),
-                    s.Node("A"),
-                    s.Node("c"),
-                    s.Node("A"),
-                    s.Node("end"),
-                ],
-                [s.Node("start"), s.Node("A"), s.Node("b"), s.Node("A"), s.Node("end")],
-                [s.Node("start"), s.Node("A"), s.Node("b"), s.Node("end")],
-                [s.Node("start"), s.Node("A"), s.Node("end")],
-                [
-                    s.Node("start"),
-                    s.Node("b"),
-                    s.Node("A"),
-                    s.Node("c"),
-                    s.Node("A"),
-                    s.Node("end"),
-                ],
-                [s.Node("start"), s.Node("b"), s.Node("A"), s.Node("end")],
-                [s.Node("start"), s.Node("b"), s.Node("end")],
-            ],
-        ),
-        (
             [s.Edge({s.Node("start"), s.Node("end")})],
             [[s.Node("start"), s.Node("end")]],
         ),
@@ -167,6 +122,15 @@ class TestEdge:
                 ],
                 [
                     s.Node("start"),
+                    s.Node("A"),
+                    s.Node("b"),
+                    s.Node("A"),
+                    s.Node("end"),
+                ],
+                [
+                    s.Node("start"),
+                    s.Node("A"),
+                    s.Node("b"),
                     s.Node("A"),
                     s.Node("b"),
                     s.Node("A"),

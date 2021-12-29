@@ -1,4 +1,5 @@
 import dataclasses
+from collections import Counter
 
 
 @dataclasses.dataclass
@@ -50,12 +51,22 @@ def get_paths_from_node(start_node, edges, path=None):
     if start_node == END:
         return [path]
 
+    small_node_counter = Counter(
+        node for node in path if not node.is_large and node not in {START, END}
+    )
+    most_common_small_nodes = small_node_counter.most_common()
+    has_visited_small_twice = (
+        most_common_small_nodes and most_common_small_nodes[0][1] > 1
+    )
     next_edges = [edge for edge in edges for node in edge.nodes if node == start_node]
+
     next_nodes = [
         node
         for edge in next_edges
         for node in edge.nodes
-        if node != start_node and (node.is_large or node not in path)
+        if node != start_node
+        and node != START
+        and (node.is_large or not has_visited_small_twice or node not in path)
     ]
     return [
         node_path
