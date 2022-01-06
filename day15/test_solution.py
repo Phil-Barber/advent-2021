@@ -15,9 +15,10 @@ test_input = [
     "2311944581",
 ]
 
-test_answer = 40
+test_answer = 315
 
 
+"""
 input_up = [  # it's possible to go UP
     "19111",
     "11191",
@@ -33,14 +34,15 @@ input_left = [  # it's possible to go LEFT
     "111",
 ]
 left_answer = 8
+"""
 
 
 @pytest.mark.parametrize(
     "input_grid, answer",
     (
         (test_input, test_answer),
-        (input_up, up_answer),
-        (input_left, left_answer),
+        # (input_up, up_answer),
+        # (input_left, left_answer),
     ),
 )
 def test_main(input_grid, answer):

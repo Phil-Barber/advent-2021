@@ -12,7 +12,33 @@ def main(input_grid):
 
 
 def to_grid(input_grid):
-    return [[int(char) for char in row] for row in input_grid]
+    initial_grid = [[int(char) for char in row] for row in input_grid]
+    """
+    grids = [previous_grid]
+    for i in range(8):
+        new_grid = [[(num + i) for num in row] for row in previous_grid]
+        new_grid = [[num if num < 10 else num % 9 for num in row] for row in new_grid]
+        grids.append(new_grid)
+        previous_grid = new_grid
+    """
+
+    orig_height = len(initial_grid)
+    orig_width = len(initial_grid[0])
+    new_height = orig_height * 5
+    new_width = orig_width * 5
+    final_grid = [[0 for _j in range(new_width)] for _i in range(new_height)]
+    for i in range(new_height):
+        for j in range(new_width):
+            mod_i = i % orig_height
+            mod_j = j % orig_width
+            initial_val = initial_grid[mod_i][mod_j]
+            num_i = int((i - mod_i) / orig_height)
+            num_j = int((j - mod_j) / orig_width)
+            new_val = initial_val + num_i + num_j
+            new_val = new_val if new_val < 10 else new_val % 9
+            final_grid[i][j] = new_val
+
+    return final_grid
 
 
 def right_or_down_costs(grid, costs):
